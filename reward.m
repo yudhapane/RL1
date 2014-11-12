@@ -19,7 +19,7 @@ function r = reward(robot)
         case 6 
             r = 1;
         case 7
-            if (robot.x_prev == 7) % less reward if the robot is already at 3
+            if (robot.x_prev == 7) % less reward if the robot is already at 7
                 r = 2;
             else
                 r = 5;

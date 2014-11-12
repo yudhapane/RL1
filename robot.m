@@ -1,7 +1,6 @@
-% % %  % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
-% % Author: Yudha Pane % % % % % % % % % % % % % % % % % % % % % % % % % % 
-% % Created on : 11 Nov 2014 % % % % % % % % % % % % % % % % % % % % % % %
-% % Description : Matlab script to demonstrate population of Q-function %  
+% Author: Yudha Pane 
+% Created on : 11 Nov 2014 
+% Description : Robot class 
 
 %% Define robot class
 classdef robot < handle

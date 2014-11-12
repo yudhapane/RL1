@@ -1,0 +1,7 @@
+To runs:
+RL0.m = a simple program about bot, a robot who lives in 1x7 row grids who is determined to clean its world.
+		Simple deterministic MDP with only two possible actions (left, right) and 7 possible states.
+		Overtime, the Q iteration algorithm will be updated and best policy is calculated
+		
+		
+		
