@@ -9,7 +9,7 @@ n = 7; % size of tile
 V = zeros(1,n); % value function
 u = zeros(1,n); % random action for all states
 N = 100; % duration of learning
-gamma = 0.5; % discount rate
+gamma = 0.2; % discount rate
 Q = zeros(N,n,2); % Q-values, the 3rd index indicates u (move left/right)
 x0 = 0; % initial state
 
@@ -19,7 +19,7 @@ for i = 2:N
             bot.x = j;
             u = k;
             bot.act(u);
-            Q(i,j,k) = reward(bot)+gamma*max(Q(i,bot.x,1),Q(i,bot.x,2)); 
+            Q(i,j,k) = reward(bot)+gamma*max(Q(i-1,bot.x,1),Q(i-1,bot.x,2)); 
         end
     end
 end
