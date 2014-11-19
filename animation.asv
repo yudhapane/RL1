@@ -1,0 +1,49 @@
+function flag = animation()
+    %% Settings
+    close all;
+    anim_fig = figure;    
+    colors = [0.7 0.5 0.2];
+    AxesHandle = axes('Parent', anim_fig, 'Position' , [0 0 10 10]);
+ 
+    %% Create grid world
+    grid1 = rectangle('Position', [0,0,1,1]);     hold on;
+    grid2 = rectangle('Position', [1,0,1,1]);
+    grid3 = rectangle('Position', [2,0,1,1]);
+    grid4 = rectangle('Position', [3,0,1,1]);
+    grid5 = rectangle('Position', [4,0,1,1]);
+    grid6 = rectangle('Position', [5,0,1,1]);
+    grid7 = rectangle('Position', [6,0,1,1]);
+    lin1 = line([0.3 0.7], [0.35 0.35]);
+    lin2 = line([0.5 0.5], [0.25 0.35]);    
+    lin3 = line([0.1 0.9], [0.65 0.65]);
+    lin4 = line([0.5 0.5], [0.65 0.85]);    
+    lin5 = line([6.25 6.25], [0.25 0.75]);
+    lin6 = line([6.75 6.75], [0.25 0.75]);  
+    El1 = plotEllipse(0.25,0.125, [6.5, 0.25]);
+    El2 = plotEllipse(0.25,0.125, [6.5, 0.75]);   
+    axis equal;
+    pause
+   shape = linkshape(); hold on;
+     link1 = patch('Parent',AxesHandle, 'FaceColor',colors(1,:));
+    set(link1,'Xdata',shape(1,:),'Ydata',shape(2,:));
+
+    
+    %% Objects    
+%     bot = patch('Parent', AxesHandle, 
+    flag = 1;
+    
+function shape = linkshape()
+    bot_D = 0.4; % robot diameter
+    n   = linspace(pi/2,-pi/2,20);
+    body    = bot_D*[sin(n);cos(n)];
+    wheel_D = 0.1; % wheels diameter
+    wheels = [-0.4 -0.2-wheel_D*sin(n) 0.2-wheel_D*sin(n) 0.4;
+              -0.3 -0.3-wheel_D*cos(n) -0.3-wheel_D*cos(n) -0.3];         
+    shape = [body, wheels];
+%     shape = move(shape,[1 1]);
+
+function c = move(a, b)
+    c(1,:) = a(1,:) + b(1);
+    c(2,:) = a(2,:) + b(2);
+
+        
