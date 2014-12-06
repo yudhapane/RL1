@@ -4,9 +4,9 @@ function r = reward(robot)
     switch robot.x
         case 1
             if (robot.x_prev == 1) 
-                r = 0;
+                r = 0.5;
             else
-                r = 2;
+                r = 3;
             end
         case 2
             r = 0.5;
