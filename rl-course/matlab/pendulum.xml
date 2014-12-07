@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<version>1.0</version>
+	<loglevel>debug</loglevel>
+	<constants>
+		<!-- Define length, radius and mass constants here. -->
+	</constants>
+	<ode>
+		<globalK>3.3E6</globalK>
+		<globalD>300</globalD>
+		<gravityZ>-9.81</gravityZ>
+		<steptime>0.01</steptime>
+		<subsamplingfactor>1</subsamplingfactor>
+		
+		<!-- Define world anchor called "pole" here, a suitable ways
+		     up. -->
+		
+		<object>
+			<name>robot</name>
+			<drawbodies>true</drawbodies>
+			
+			<!-- Set pole initial condition here (rotate 180
+`			     degrees around the X axis). -->
+			
+			<body>
+				<name>pole</name>
+				
+				<!-- Set mass and inertia properties here. -->
+				
+				<!-- Define pole anchor called "world" here,
+				     at the bottom of the pole. -->
+				
+				<!-- Define drawing information here. Draw a
+				     cylinder of the right length and
+				     radius. -->
+			</body>
+			<joint>
+				<name>joint</name>
+				
+				<!-- Define hinge joint connecting
+				     the world/pole anchor with pole/world. -->
+				     
+				<!-- Define a torque motor to actuate the
+				     joint. -->
+			</joint>
+		</object>
+	</ode>
+</configuration>

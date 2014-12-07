@@ -1,0 +1,7 @@
+%EPS_GREEDY calls testbandit.m for various epsilon values and compares
+%the cumulative reward
+
+
+eps = [0.1 0.3 0.6 0.9];
+for i = 1:length(eps)
+    [r,otestbandit
