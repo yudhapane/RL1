@@ -16,8 +16,7 @@ function [b, o] = getbandit(n)
     function r = bandit(a)
         if a < 1 || a > n
             error(['Arm must be between 1 and ' num2str(n)]);
-        end
-        
+        end        
         r = arms(a) + randn(1);
     end
 end

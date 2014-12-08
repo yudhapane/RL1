@@ -1,7 +1,27 @@
 %EPS_GREEDY calls testbandit.m for various epsilon values and compares
 %the cumulative reward
 
-
-eps = [0.1 0.3 0.6 0.9];
+close all; clear;
+eps = [0.1 0.01 0 1];
+colors =[0, 0, 0;
+         1, 0, 0;
+         0, 1, 0;
+         0, 0, 1];
+figure;
 for i = 1:length(eps)
-    [r,otestbandit
+    [r,o] = testbandit(eps(i));
+%     cumReward = cumsum(r)./[1:1:500];
+%     subplot(6,1,i); 
+    plot(r, 'Color', colors(i,:));  hold on;
+end
+axis([0 500 -3 5]);
+legend(['eps=', num2str(eps(1))],['eps=', num2str(eps(2))],['eps=', ...
+    num2str(eps(3))],['eps=', num2str(eps(4))]);
+
+figure;
+for i = 1:length(eps)
+    [r,o] = testbandit(eps(i));
+    plot(o, 'Color', colors(i,:));  hold on;
+end
+legend(['eps=', num2str(eps(1))],['eps=', num2str(eps(2))],['eps=', ...
+    num2str(eps(3))],['eps=', num2str(eps(4))]);

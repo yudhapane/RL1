@@ -1,4 +1,4 @@
-function [r, o] = testbandit(eps)
+function [Q, r, o] = testbandit(eps)
 %TESTBANDIT Test evaluative feedback performance on n-armed bandit problem
 %   R = testbandit(N, EPS) returns the average performance
 %   of evaluative feedback learning on the N-armed bandit with exploration
@@ -11,7 +11,7 @@ function [r, o] = testbandit(eps)
     % Set conditions
     N = 10;
     tasks = 1;
-    plays = 500;
+    plays = 1500;
 
     % Initialize record keeping
     rewards = zeros(1, plays);
@@ -28,13 +28,17 @@ function [r, o] = testbandit(eps)
         Q = zeros(1, N);
         a = opt;
         
-        for pp=1:plays
+        for pp=2:plays
             % TODO: Epsilon-greedy action selection
             temp = rand;
             if temp <= eps
-                a = 
+                a = randperm(N,1);
+            else
+                a = opt;
+            end
             % Run the bandit
             r = bandit(a);
+            Q(pp) = Q(pp-1) + 1/(pp)*(r-Q(pp-1));
             
             % TODO: Update Q table
 
