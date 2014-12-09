@@ -14,41 +14,56 @@ function [r, o] = testbandit(eps, tasks, plays)
     % Initialize record keeping
     rewards = zeros(1, plays);
     optactions = zeros(1, plays);
-    pa = 1/N;
-    p = pa*ones(N,1);
+    
+    % epsilon greedy probability array initialization    
+    pa = eps/(N); % sampling probability of each action
+    
     for ii=1:tasks
         % Get a random bandit and its associated optimal action
         [bandit, opt] = getbandit(N);
-
+        astar = opt;
         % Initialize action counter
         k = zeros(1, N);
 
         % Initialize Q table
         Q = zeros(1, N);
-        Q(1) = 0;
+        
+        R = zeros(1,plays);
         for pp=2:plays
-            % TODO: Epsilon-greedy action selection
-            temp = rand;
-            if temp <= eps
-                a = sample(p);
-            else
-                a = opt;
-            end
+            
+            % Epsilon-greedy action selection           
+            p = pa*ones(N,1); % reset probability
+            p(astar) = p(astar)+ 1-eps;
+            
+            a = sample(p);
+            
             % Run the bandit
             r = bandit(a);
-%             Q(pp+1) = Q(pp-1) + 1/(pp)*(r-Q(pp-1));
+            
+            % Incremental sample averaging
+            R(pp) = R(pp-1) + 1/(pp)*(r-R(pp-1));
+            
+            % Update action counter
+            k(a) = k(a) + 1;
             
             % TODO: Update Q table
-
+            if(k(a) == 0)
+                Q(a) = 0;
+            else                 
+                Q(a) = (r + Q(a))/k(a);
+            end
+                
+            [maxR, astar] = max(Q);
+            
             % Update record keeping
-            rewards(pp) = rewards(pp) + r;
+%             rewards(pp) = rewards(pp) + r;
             if a == opt
                 optactions(pp) = optactions(pp) + 1;
             end
             
-            % Update action counter
-            k(a) = k(a) + 1;
+
         end
+        rewards = rewards+R;
     end
 
     % Averaging

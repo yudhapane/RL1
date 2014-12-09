@@ -1,4 +1,4 @@
-function [Q, r, o] = testbandit(eps)
+function [r, o] = testbandit(eps, tasks, plays)
 %TESTBANDIT Test evaluative feedback performance on n-armed bandit problem
 %   R = testbandit(N, EPS) returns the average performance
 %   of evaluative feedback learning on the N-armed bandit with exploration
@@ -10,38 +10,48 @@ function [Q, r, o] = testbandit(eps)
 
     % Set conditions
     N = 10;
-    tasks = 1;
-    plays = 1500;
 
     % Initialize record keeping
     rewards = zeros(1, plays);
     optactions = zeros(1, plays);
-
+    
+    % epsilon greedy probability array initialization    
+    pa = eps/(N); % sampling probability of each action
+    
     for ii=1:tasks
         % Get a random bandit and its associated optimal action
         [bandit, opt] = getbandit(N);
-
+        astar = opt;
         % Initialize action counter
         k = zeros(1, N);
 
         % Initialize Q table
         Q = zeros(1, N);
-        a = opt;
         
+        R = zeros(1,plays);
         for pp=2:plays
-            % TODO: Epsilon-greedy action selection
-            temp = rand;
-            if temp <= eps
-                a = randperm(N,1);
-            else
-                a = opt;
-            end
+            
+            % Epsilon-greedy action selection           
+            p = pa*ones(N,1); % reset probability
+            p(astar) = p(astar)+ 1-eps;
+            
+            a = sample(p);
+            
             % Run the bandit
             r = bandit(a);
-            Q(pp) = Q(pp-1) + 1/(pp)*(r-Q(pp-1));
+            
+            % Incremental sample averaging
+%             R(pp) = R(pp-1) + 1/(pp)*(r-R(pp-1));
             
             % TODO: Update Q table
-
+            if(k(a) == 0)
+                Q(a) = 0;
+            else                 
+                Q(a) = (r + Q(a))/k(a);
+            end
+                
+            [maxR, astar] = max(Q);
+            
             % Update record keeping
             rewards(pp) = rewards(pp) + r;
             if a == opt
@@ -51,6 +61,7 @@ function [Q, r, o] = testbandit(eps)
             % Update action counter
             k(a) = k(a) + 1;
         end
+%         rewards = rewards+R;
     end
 
     % Averaging
