@@ -1,14 +1,14 @@
 %EPS_GREEDY calls testbandit.m for various epsilon values and compares
 %the cumulative reward
-close all; clear;
+clear; clc; close all;
 plays = 1000;
-tasks = 300;
+tasks = 500;
 
-tEps = [0.1 0 0.2];
+tEps = [0 0.01 0.1];
 colors =[0, 0, 1;
          1, 0, 0;
          0, 0, 0];
-figure;
+clf;
 for i = 1:length(tEps)
     [r,o,Q,k] = testbandit(tEps(i), tasks, plays);
     subplot(2,1,1);

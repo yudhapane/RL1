@@ -1,4 +1,4 @@
-function [b, o] = getbandit(n)
+function [b, o, arms] = getbandit(n)
 %GETBANDIT Generate random n-armed bandit.
 %   B = GETBANDIT(N) returns a random N-armed bandit function with
 %   prototype R = BANDIT(A), where A is the number of the arm and
