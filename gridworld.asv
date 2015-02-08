@@ -1,0 +1,21 @@
+classdef gridworld < handle
+    properties
+        state = [0, 0];
+    end
+    methods
+        function grid = gridworld(action)
+            switch action
+                case 0
+                    if (grid.state(1) >= 0)
+                        grid.state = grid.state + [-1, 0];
+                    end
+                case 1
+                    if (grid.state(1) >= 0)
+                    
+                    grid.state = grid.state + [0, 1];
+                case 2
+                    grid.state = grid.state + [1, 0];
+                case 3
+                    grid.state = grid.state + [1, 0];                                        
+            end
+            
